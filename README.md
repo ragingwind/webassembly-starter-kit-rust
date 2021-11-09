@@ -6,7 +6,7 @@
 
 ```sh
 # build docker
-docker build -t "wsk/rust" -f Dockerfile .
+docker build -t "wask/rust" -f Dockerfile .
 ```
 
 # Run
@@ -15,7 +15,7 @@ docker build -t "wsk/rust" -f Dockerfile .
 # - tty interactive
 # - mount src to
 # - mapping inner port to outer
-docker run -t -i --mount type=bind,source="$PWD/src",target=/src -p 8080:8080 "wsk/rust"
+docker run -t -i --mount type=bind,source="$PWD/src",target=/src -p 8080:8080 "wask/rust"
 ```
 
 # License
