@@ -1,0 +1,14 @@
+<script type="module">
+  (async () => {
+    const {
+      instance: { exports },
+    } = await WebAssembly.instantiateStreaming(fetch('./hello-wasm.wasm'));
+    const { memory, hello_offset, hello_len } = exports;
+    const offset = hello_offset();
+    const len = hello_len();
+    const buffer = new Uint8Array(memory.buffer, offset, len);
+    const hello = buffer.reduce((str, cur) => str + String.fromCharCode(cur), '');
+
+    document.querySelector('body').textContent = hello;
+  })();
+</script>
