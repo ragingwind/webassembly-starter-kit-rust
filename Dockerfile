@@ -3,21 +3,41 @@ FROM ubuntu:20.04
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.56.1
+    RUST_VERSION=1.56.1 \
+    DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Seoul
 
 RUN set -ex;
 
-RUN apt-get update
-RUN apt-get install curl build-essential make gcc -y
+# Install development dependencies
+RUN apt-get update && \
+    apt-get install curl build-essential make gcc nodejs npm -y
 
+# Install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain=$RUST_VERSION
 RUN chmod -R a+w $RUSTUP_HOME $CARGO_HOME
 RUN rustup --version
 RUN cargo --version
 RUN rustc --version
 
-RUN apt-get install --no-install-recommends -y binaryen wabt
+# Install WASM targets
 RUN rustup target add wasm32-unknown-unknown
-RUN mkdir -p /src
+RUN rustup target add wasm32-wasi
 
-WORKDIR /src
+# Install WASM runtime, wasmtime
+RUN curl https://wasmtime.dev/install.sh -sSf | bash
+
+# Install wasm-pack
+RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh 
+
+# HTTP serve for test
+RUN npm install -g serve
+
+# Tookits
+# RUN apt-get install --no-install-recommends -y binaryen wabt
+
+# rust+thread
+# PATH=$PATH:$(dirname $(find $(rustc --print sysroot) -name 'rust-lld')) \
+# RUSTFLAGS='-C target-feature=+atomics,+bulk-memory' rustup run nightly wasm-pack build -t no-modules -- -Z build-std
+
+WORKDIR /wask

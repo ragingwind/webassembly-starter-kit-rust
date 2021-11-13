@@ -1,21 +1,16 @@
 # WebAssembly Starter Kit with Rust
 
-> Collective tools for learning WebAssembly with Rust
+> Collective tools for learning WebAssembly with Rust. WARNING, Docker and packages are not working well on Apple M1
 
 # Setup
 
 ```sh
-# build docker
 docker build -t "wask/rust" -f Dockerfile .
 ```
 
 # Run
 ```sh
-# run docker with 
-# - tty interactive
-# - mount src to
-# - mapping inner port to outer
-docker run -t -i --mount type=bind,source="$PWD/src",target=/src -p 8080:8080 "wask/rust"
+docker run -t -i --mount type=bind,source="$PWD",target=/wask -p 3000:3000 "wask/rust"
 ```
 
 # License
