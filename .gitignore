@@ -1,8 +1,10 @@
 *.wasm
-node_modules
-pkg
+node_modules/
+pkg/
 pkg-parallel
 target
-dist
+dist/
 yarn.lock
 package-lock.json
+Cargo.lock
+wasm-pack.log
