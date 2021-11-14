@@ -7,6 +7,14 @@ extern {
 }
 
 #[wasm_bindgen]
-pub fn hello(src: &str) {
+pub fn hello_alert(src: &str) {
     alert(&format!("Hello, {}!", src));
+}
+
+#[wasm_bindgen]
+pub fn hello_dom() {
+    let window = web_sys::window().expect("no global 'window' exists");
+    let document = window.document().expect("should have a document on window");
+
+    document.body().unwrap().set_text_content(Some("Hello, wasm-bindgen!"));
 }

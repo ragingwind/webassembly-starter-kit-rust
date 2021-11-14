@@ -1,5 +1,7 @@
 <script type="module">
-    import init, {hello } from './pkg/hello_wasm_bindgen.js';
-    await init();
-    hello('wasm-bindgen');
+  import init, { hello_alert, hello_dom } from './pkg/hello_wasm_bindgen.js';
+  await init();
+
+  hello_dom();
+  hello_alert('wasm-bindgen');
 </script>
