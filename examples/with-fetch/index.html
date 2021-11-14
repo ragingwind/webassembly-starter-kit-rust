@@ -1,0 +1,9 @@
+<script type="module">
+  import init, { fetch_data } from './pkg/with_fetch.js';
+  await init();
+  const json = await fetch_data(
+    'https://raw.githubusercontent.com/ragingwind/wask-rust/main/examples/with-fetch/example.json'
+  );
+
+  document.body.textContent = json;
+</script>
