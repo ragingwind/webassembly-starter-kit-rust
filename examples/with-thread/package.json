@@ -1,0 +1,21 @@
+{
+  "name": "with-thread",
+  "version": "1.0.0",
+  "author": "Jimmy Moon <ragingwind@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "cargo update && rustup component add rust-src --toolchain nightly-2021-07-29-x86_64-unknown-linux-gnu",
+    "build:wasm": "RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' rustup run nightly-2021-07-29 wasm-pack build --target web --out-dir pkg-parallel -- --features parallel -Z build-std=panic_abort,std",
+    "build:app": "webpack build ./index.js --mode production -o dist --output-filename index.js && cp index.html dist/ && cp serve.json dist/",
+    "build": "npm run build:wasm && npm run build:app",
+    "start": "cd ./dist && serve"
+  },
+  "dependencies": {
+    "comlink": "^4.3.1",
+    "wasm-feature-detect": "^1.2.11"
+  },
+  "devDependencies": {
+    "webpack": "^5.64.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
