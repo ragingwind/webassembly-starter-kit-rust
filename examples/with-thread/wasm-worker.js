@@ -6,7 +6,7 @@ async function importModule() {
     return;
   }
 
-  const thread = await import('./pkg-parallel/with_thread.js');
+  const thread = await import('./pkg/with_thread.js');
   await thread.default();
   await thread.initThreadPool(navigator.hardwareConcurrency);
 
