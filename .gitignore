@@ -1,4 +1,8 @@
 *.wasm
 node_modules
 pkg
+pkg-parallel
 target
+dist
+yarn.lock
+package-lock.json

@@ -34,10 +34,6 @@ RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 RUN npm install -g serve
 
 # Tookits
-# RUN apt-get install --no-install-recommends -y binaryen wabt
-
-# rust+thread
-# PATH=$PATH:$(dirname $(find $(rustc --print sysroot) -name 'rust-lld')) \
-# RUSTFLAGS='-C target-feature=+atomics,+bulk-memory' rustup run nightly wasm-pack build -t no-modules -- -Z build-std
+RUN apt-get install --no-install-recommends -y binaryen wabt
 
 WORKDIR /wask
